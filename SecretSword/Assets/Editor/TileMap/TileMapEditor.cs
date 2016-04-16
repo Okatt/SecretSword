@@ -203,10 +203,12 @@ public class TileMapEditor : Editor {
         switch (map.tileID)
 	    {
             case 1:
+	            tile.layer = 0;
                 if (boxCollider)
 	                DestroyImmediate(boxCollider);
 	            break;
             case 2:
+	            tile.layer = 8;
                 if (!boxCollider)
                     tile.AddComponent<BoxCollider2D>();
                 break;

@@ -14,11 +14,5 @@ public class GeneralObject : MonoBehaviour
     {
         Rigidbody2D = GetComponent<Rigidbody2D>();
     }
-
-    protected virtual void Update()
-    {
-        var drag = .1f;
-        Rigidbody2D.velocity *= drag;
-    }
     #endregion
 }
