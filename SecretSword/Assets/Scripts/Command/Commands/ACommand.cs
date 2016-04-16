@@ -2,14 +2,12 @@
 
 namespace Commands
 {
-    [RequireComponent(typeof(PossessableObject))]
     public abstract class ACommand : MonoBehaviour
     {
-        protected PossessableObject mPossessableObject;
+        protected GeneralObject mGeneralObject;
 
         protected virtual void Start()
         {
-            mPossessableObject = GetComponent <PossessableObject>();
         }
 
         public abstract bool Execute();

@@ -2,7 +2,7 @@
 
 namespace Commands
 {
-    class Move : ACommand
+    class Move : ACommandPossesable
     {
         [SerializeField]
         private Vector2 direction;

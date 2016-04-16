@@ -3,7 +3,7 @@
 namespace Commands
 {
     [DisallowMultipleComponent]
-    public class SwitchInputHandler : ACommand
+    public class SwitchInputHandler : ACommandPossesable
     {
         public override bool Execute()
         {

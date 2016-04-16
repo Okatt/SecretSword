@@ -1,6 +1,6 @@
 ﻿namespace Commands
 {
-    class CallBody : ACommand
+    class CallBody : ACommandPossesable
     {
         public override bool Execute()
         {
