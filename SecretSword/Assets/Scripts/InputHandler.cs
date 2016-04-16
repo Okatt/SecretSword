@@ -8,7 +8,6 @@ public class InputHandler : MonoBehaviour
     #endregion
 
     #region Messages
-
     void Start()
     {
         mActive.mInputHandler = this;
@@ -40,6 +39,10 @@ public class InputHandler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad6) && mActive.mButtonB)
         {
             mActive.mButtonB.Execute();
+        }
+        if (Input.GetKey(KeyCode.Keypad8) && mActive.mButtonY)
+        {
+            mActive.mButtonY.Execute();
         }
     }
 }

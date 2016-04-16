@@ -1,17 +1,13 @@
 ﻿using UnityEngine;
 using Commands;
 
-[DisallowMultipleComponent]
-[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D))]
-public class PossessableObject : MonoBehaviour
+public class PossessableObject : GeneralObject
 {
     #region Memebers
     public InputHandler mInputHandler;
-    public float mSpeed = 1;
     public bool mIsEnterable = true;
 
     public PossessableObject OtherPO { get; set; }
-    public Rigidbody2D Rigidbody2D { get; set; }
     public SpriteRenderer SpriteRenderer { get; set; }
 
     #region Commands
@@ -21,20 +17,15 @@ public class PossessableObject : MonoBehaviour
     public ACommand mMoveRight;
 
     public ACommand mButtonB;
+    public ACommand mButtonY;
     #endregion
     #endregion
 
     #region Messages
-    void Start()
+    protected override void Start()
     {
-        Rigidbody2D = GetComponent<Rigidbody2D>();
+        base.Start();
         SpriteRenderer = GetComponent<SpriteRenderer>();
-    }
-    
-    void Update()
-    {
-        var drag = .1f;
-        Rigidbody2D.velocity *= drag;
     }
     #endregion
 }
