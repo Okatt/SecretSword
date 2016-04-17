@@ -122,6 +122,12 @@ public class SpikeBall : MonoBehaviour
             }   
         }
     }
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (State == EState.vulnerable && other.gameObject.layer == 18)
+            Destroy(gameObject);
+    }
     #endregion
 
     private enum EState
