@@ -1,48 +1,28 @@
 ﻿using UnityEngine;
-using Commands;
 
 public class InputHandler : MonoBehaviour
 {
     #region Memebers
-    public PossessableObject mActive;
+    public APC mCharacter;
     #endregion
 
     #region Messages
     void Start()
     {
-        mActive.mInputHandler = this;
+        mCharacter.InputHandler = this;
     }
 	void Update ()
 	{
-	    updateMovement();
-	    updateButtonPress();
-	}
+        mCharacter.Direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        if (Input.GetKeyDown(KeyCode.Joystick1Button0)) // A
+            mCharacter.ButtonA();
+        if (Input.GetKeyDown(KeyCode.Joystick1Button1)) // B
+            mCharacter.ButtonB();
+        if (Input.GetKeyDown(KeyCode.Joystick1Button2)) // X
+            mCharacter.ButtonX();
+        if (Input.GetKeyDown(KeyCode.Joystick1Button3)) // Y
+            mCharacter.ButtonY();
+    }
     #endregion
-
-    private void updateMovement()
-    {
-        var x = Input.GetAxis("Horizontal");
-        if (0 < x && mActive.mMoveRight)
-            mActive.mMoveRight.Execute();
-        else if (x < 0 && mActive.mMoveLeft)
-            mActive.mMoveLeft.Execute();
-
-        var y = Input.GetAxis("Vertical");
-        if (0 < y && mActive.mMoveUp)
-            mActive.mMoveUp.Execute();
-        else if (y < 0 && mActive.mMoveDown)
-            mActive.mMoveDown.Execute();
-    }
-
-    private void updateButtonPress()
-    {
-        if (Input.GetKeyDown(KeyCode.Keypad6) && mActive.mButtonB)
-        {
-            mActive.mButtonB.Execute();
-        }
-        if (Input.GetKey(KeyCode.Keypad8) && mActive.mButtonY)
-        {
-            mActive.mButtonY.Execute();
-        }
-    }
 }
