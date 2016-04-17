@@ -56,6 +56,17 @@ public abstract class APC : MonoBehaviour
         return true;
     }
 
+    protected virtual void handleVelocity()
+    {
+        if (mKnockBackTime == 0)
+            RigidBody2D.velocity = Direction.normalized * mSpeed;
+        else
+        {
+            RigidBody2D.velocity = mKnockBackVelocity;
+            mKnockBackTime = --mKnockBackTime < 0 ? 0 : mKnockBackTime;
+        }
+    }
+
     public virtual void KnockBack(EKnockType type, Vector2 knockbackDirection, float knockback) {}
 
     #region Messages
@@ -67,14 +78,7 @@ public abstract class APC : MonoBehaviour
 	// Update is called once per frame
     protected virtual void Update()
     {
-        if (mKnockBackTime == 0)
-            RigidBody2D.velocity = Direction.normalized*mSpeed;
-        else
-        {
-            RigidBody2D.velocity = mKnockBackVelocity;
-            mKnockBackTime = --mKnockBackTime < 0 ? 0 : mKnockBackTime;
-        }
-
+        handleVelocity();
         if (InputHandler)
             InputHandler.transform.position = RigidBody2D.position + (RigidBody2D.velocity * Time.deltaTime);
     }
