@@ -119,8 +119,7 @@ public class SpikeBall : MonoBehaviour
                         pc.KnockBack(EKnockType.KnockBack, mRigidbody2D.velocity.normalized, Speed);
                         break;
                 }
-            }
-                
+            }   
         }
     }
     #endregion

@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(SpriteRenderer))]
 public abstract class APC : MonoBehaviour
 {
     [SerializeField]
-    protected float mSpeed;
+    protected float mSpeed = 10;
     protected int mKnockBackTime;
     protected Vector2 mKnockBackVelocity;
 
-    public bool CanEnter;
+    public bool CanEnter = true;
     public APC OtherPC { get; set; }
     public Vector2 Direction { get; set; }
     public Rigidbody2D RigidBody2D { get; set; }
