@@ -19,7 +19,7 @@ public class InputHandler : MonoBehaviour
             mCharacter.ButtonA();
         if (Input.GetKeyDown(KeyCode.Joystick1Button1)) // B
             mCharacter.ButtonB();
-        if (Input.GetKeyDown(KeyCode.Joystick1Button2)) // X
+        if (Input.GetKey(KeyCode.Joystick1Button2)) // X
             mCharacter.ButtonX();
         if (Input.GetKeyDown(KeyCode.Joystick1Button3)) // Y
             mCharacter.ButtonY();

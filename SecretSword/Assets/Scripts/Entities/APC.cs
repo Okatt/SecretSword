@@ -15,7 +15,11 @@ public abstract class APC : MonoBehaviour
 
     public virtual void ButtonA() { }
     public virtual void ButtonB() { }
-    public virtual void ButtonX() { }
+
+    public virtual void ButtonX()
+    {
+        Body.Singleton.Target += (Vector2)transform.position;
+    }
     public virtual void ButtonY()
     {
         if (SwitchInputHandler(this, OtherPC))
