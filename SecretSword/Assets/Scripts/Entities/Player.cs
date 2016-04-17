@@ -6,32 +6,28 @@ public class Player : APC
     private SpriteRenderer mSpriteRenderer;
     private bool mIsActive = true;
     
-    public override void ButtonA()
-    {
-        
-    }
-
-    public override void ButtonB()
-    {
-        
-    }
-
     public override void Enter(APC other)
     {
         base.Enter(other);
         mSpriteRenderer.enabled = true;
         transform.position = OtherPC.transform.position;
-        RidgidBody2D.position = OtherPC.RidgidBody2D.position;
+        RigidBody2D.position = OtherPC.RigidBody2D.position;
         mIsActive = true;
     }
 
-    public override void Exit()
+    public override void Exit(APC other)
     {
-        base.Exit();
+        base.Exit(other);
         mSpriteRenderer.enabled = false;
         mIsActive = false;
     }
 
+
+    public override void KnockBack(EKnockType type, Vector2 knockbackDirection, float knockback)
+    {
+        mKnockBackTime = 100;
+        mKnockBackVelocity = knockbackDirection * knockback;
+    }
     #region Messages
     protected override void Start()
     {

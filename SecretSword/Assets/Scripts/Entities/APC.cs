@@ -6,11 +6,13 @@ public abstract class APC : MonoBehaviour
 {
     [SerializeField]
     protected float mSpeed;
+    protected int mKnockBackTime;
+    protected Vector2 mKnockBackVelocity;
 
     public bool CanEnter;
     public APC OtherPC { get; set; }
     public Vector2 Direction { get; set; }
-    public Rigidbody2D RidgidBody2D { get; set; }
+    public Rigidbody2D RigidBody2D { get; set; }
     public InputHandler InputHandler { get; set; }
 
     public virtual void ButtonA() { }
@@ -24,19 +26,20 @@ public abstract class APC : MonoBehaviour
     {
         if (SwitchInputHandler(this, OtherPC))
         {
-            Exit();
-            OtherPC.Enter(this);
+            var other = OtherPC;
+            Exit(OtherPC);
+            other.Enter(this);
         }
     }
 
     public virtual void Enter(APC other)
     {
-        RidgidBody2D.velocity = Vector2.zero;
+        RigidBody2D.velocity = Vector2.zero;
     }
 
-    public virtual void Exit()
+    public virtual void Exit(APC other)
     {
-        RidgidBody2D.velocity = Vector2.zero;
+        RigidBody2D.velocity = Vector2.zero;
         Direction = Vector2.zero;
     }
 
@@ -51,19 +54,28 @@ public abstract class APC : MonoBehaviour
 
         return true;
     }
-    
+
+    public virtual void KnockBack(EKnockType type, Vector2 knockbackDirection, float knockback) {}
+
     #region Messages
     protected virtual void Start ()
     {
-        RidgidBody2D = GetComponent<Rigidbody2D>();
+        RigidBody2D = GetComponent<Rigidbody2D>();
     }
 	
 	// Update is called once per frame
     protected virtual void Update()
     {
-        RidgidBody2D.velocity = Direction.normalized*mSpeed;
+        if (mKnockBackTime == 0)
+            RigidBody2D.velocity = Direction.normalized*mSpeed;
+        else
+        {
+            RigidBody2D.velocity = mKnockBackVelocity;
+            mKnockBackTime = --mKnockBackTime < 0 ? 0 : mKnockBackTime;
+        }
+
         if (InputHandler)
-            InputHandler.transform.position = RidgidBody2D.position + (RidgidBody2D.velocity * Time.deltaTime);
+            InputHandler.transform.position = RigidBody2D.position + (RigidBody2D.velocity * Time.deltaTime);
     }
     #endregion
 }

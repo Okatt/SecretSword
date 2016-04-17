@@ -101,6 +101,27 @@ public class SpikeBall : MonoBehaviour
         {
             State = EState.vulnerable;
         }
+
+        if (State != EState.vulnerable && other.transform.tag == "Player" && other.gameObject.layer == 13)
+        {
+            var pc = other.gameObject.GetComponent<PC>();
+            if (pc)
+            {
+                switch (State)
+                {
+                    case EState.normal:
+                        pc.KnockBack(EKnockType.KnockBack, mRigidbody2D.velocity.normalized, Speed * 1.5f);
+                        break;
+                    case EState.dash:
+                        pc.KnockBack(EKnockType.KnockOut, mRigidbody2D.velocity.normalized, Speed * 2);
+                        break;
+                    case EState.charge:
+                        pc.KnockBack(EKnockType.KnockBack, mRigidbody2D.velocity.normalized, Speed);
+                        break;
+                }
+            }
+                
+        }
     }
     #endregion
 
