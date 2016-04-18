@@ -15,6 +15,15 @@ public class InputHandler : MonoBehaviour
 	{
         mCharacter.Direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
+        if(Input.GetKeyDown(KeyCode.Z))
+        	mCharacter.ButtonA();
+        if(Input.GetKeyDown(KeyCode.X))
+        	mCharacter.ButtonB();
+        if(Input.GetKey(KeyCode.C))
+        	mCharacter.ButtonX();
+        if(Input.GetKeyDown(KeyCode.V))
+        	mCharacter.ButtonY();
+
         if (Input.GetKeyDown(KeyCode.Joystick1Button0)) // A
             mCharacter.ButtonA();
         if (Input.GetKeyDown(KeyCode.Joystick1Button1)) // B

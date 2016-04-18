@@ -6,11 +6,9 @@ public class TilePickerWindow : EditorWindow {
 
 	public enum Scale
 	{
+		perfect,
 		x1,
-		x2,
-		x3,
-		x4,
-		x5
+		x2
 	}
 
 	Scale scale;
@@ -30,15 +28,17 @@ public class TilePickerWindow : EditorWindow {
 		if (Selection.activeObject == null)
 			return;
 
-		var selection = ((GameObject)Selection.activeObject).GetComponent<TileMap> ();
+        TileMap selection = ((GameObject)Selection.activeObject).GetComponent<TileMap>();
 
 		if (selection != null) {
 			var texture2D = selection.texture2D;
 			if(texture2D != null){
 				scale = (Scale)EditorGUILayout.EnumPopup("Zoom", scale);
-				var newScale = ((int)scale) + 1;
-				var newTextureSize = new Vector2(texture2D.width, texture2D.height) * newScale;
-				var offset = new Vector2(10 , 25);
+
+				float newScale = ((int)scale == 0) ? 0.25f : ((int)scale);
+
+                var newTextureSize = new Vector2(texture2D.width, texture2D.height) * newScale;
+				var offset = new Vector2(10, 25);
 
 				var viewPort = new Rect(0,0, position.width-5, position.height-5);
 				var contentSize = new Rect(0,0, newTextureSize.x + offset.x, newTextureSize.y + offset.y);
@@ -63,8 +63,8 @@ public class TilePickerWindow : EditorWindow {
 				var cEvent = Event.current;
 				Vector2 mousePos = new Vector2(cEvent.mousePosition.x, cEvent.mousePosition.y);
 				if(cEvent.type == EventType.mouseDown && cEvent.button == 0){
-					currentSelection.x = Mathf.Floor((mousePos.x + scrollPosition.x) / tile.x);
-					currentSelection.y = Mathf.Floor((mousePos.y + scrollPosition.y) / tile.y);
+					currentSelection.x = Mathf.Floor((mousePos.x + scrollPosition.x - offset.x) / tile.x);
+					currentSelection.y = Mathf.Floor((mousePos.y + scrollPosition.y - offset.y) / tile.y);
 
 					if(currentSelection.x > grid.x -1)
 						currentSelection.x = grid.x -1;
